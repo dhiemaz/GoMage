@@ -1,4 +1,4 @@
-# GoMage Go Image Colour Adjustment 
+# GoMage - Image Colour Adjustment 
 
 GoMage is a image colour adjustment program build entirely using Go Programming Language.
 
