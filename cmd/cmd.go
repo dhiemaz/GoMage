@@ -26,6 +26,11 @@ func NewCommand() *Command {
 
 // Run the all command line
 func (c *Command) Run() {
+	var (
+		temp      uint32
+		imagePath string
+	)
+
 	var rootCommands = []*cobra.Command{
 		{
 			Use:   "temp-adjust",
@@ -49,9 +54,12 @@ func (c *Command) Run() {
 	}
 
 	for _, command := range rootCommands {
+		c.rootCmd.SetHelpCommand(command)
 		c.rootCmd.AddCommand(command)
 	}
 
+	c.rootCmd.Flags().StringVarP(&imagePath, "image path", "u", "", "Image path.")
+	c.rootCmd.Flags().Uint32VarP(&temp, "temperature", "t", 0, "Temperature, use positive number for warmer and negative number for cooler.")
 	c.rootCmd.Execute()
 }
 
