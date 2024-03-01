@@ -10,11 +10,23 @@ type Command struct {
 	rootCmd *cobra.Command
 }
 
+var text = `
+ ________          _____                         
+ /  _____/  ____   /     \ _____     ____   ____  
+/   \  ___ /  _ \ /  \ /  \\__  \   / ___\_/ __ \ 
+\    \_\  (  <_> )    Y    \/ __ \_/ /_/  >  ___/ 
+ \______  /\____/\____|__  (____  /\___  / \___  >
+        \/               \/     \//_____/      \/ `
+
 func NewCommand() *Command {
 	var rootCmd = &cobra.Command{
 		Use:   "GoMage",
 		Short: "Go Image manipulation command line.",
 		Long:  "Go Image manipulation command line.",
+		PersistentPreRun: func(cmd *cobra.Command, args []string) {
+			// Show display text
+			fmt.Println(fmt.Sprintf(text))
+		},
 	}
 
 	return &Command{
@@ -29,30 +41,21 @@ func (c *Command) Run() {
 		inputImage, outputImage string
 	)
 
-	var rootCmd = &cobra.Command{
-
-		Use:   "temp-adjust",
-		Short: "Adjust image temperature, use positive number for warmer and negative number for cooler.",
-		Long:  "Adjust image temperature, use positive number for warmer and negative number for cooler.",
-
-		PreRun: func(cmd *cobra.Command, args []string) {
-			//logger.WithFields(logger.Fields{"component": "command", "action": fmt.Sprintf("adjusting image %s with temp value %d", inputImage, temp)}).
-			//	Infof("PreRun command done")
-
-			fmt.Println(inputImage, outputImage, temp)
-
-			actions.AdjustTemperature(inputImage, outputImage, temp)
-		},
+	var temperatureCommand = &cobra.Command{
+		Use:   "temperature",
+		Short: "adjust image temperature.",
+		Long:  "adjust image temperature.",
+		Args:  cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-
-		},
-		PostRun: func(cmd *cobra.Command, args []string) {
-
+			actions.AdjustTemperature(inputImage, outputImage, temp)
 		},
 	}
 
-	rootCmd.Flags().StringVarP(&inputImage, "input image", "i", "", "Input image file.")
-	rootCmd.Flags().StringVarP(&outputImage, "output image", "o", "", "Output image file.")
-	rootCmd.Flags().Float64VarP(&temp, "temperature", "t", 0, "Temperature, use positive number for warmer and negative number for cooler.")
-	rootCmd.Execute()
+	temperatureCommand.Flags().StringVarP(&inputImage, "input image", "i", "", "Input image file.")
+	temperatureCommand.Flags().StringVarP(&outputImage, "output image", "o", "", "Output image file.")
+	temperatureCommand.Flags().Float64VarP(&temp, "temperature", "t", 0, "Temperature, use positive number for warmer and negative number for cooler.")
+
+	c.rootCmd.AddCommand(temperatureCommand)
+	c.rootCmd.SuggestionsMinimumDistance = 1
+	c.rootCmd.Execute()
 }
