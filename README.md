@@ -10,7 +10,8 @@ GoMage is a image colour adjustment CLI application build entirely using Go Prog
 
 ## System Requirement ##
 * GO SDK +1.21
-* Cobra CLI
+* [Cobra CLI](https://github.com/spf13/cobra)
+* [go-colorful](https://github.com/lucasb-eyer/go-colorful)
 
 ### Project structure layout
 ```text
