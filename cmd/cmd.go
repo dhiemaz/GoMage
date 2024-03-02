@@ -51,13 +51,13 @@ func (c *Command) Run() {
 		},
 	}
 
-	temperatureCommand.Flags().StringVarP(&inputImage, "input image", "i", "", "input image file (mandatory).")
-	temperatureCommand.Flags().StringVarP(&outputImage, "output image", "o", "", "output image file (mandatory).")
+	temperatureCommand.Flags().StringVarP(&inputImage, "input", "i", "", "input image file (mandatory).")
+	temperatureCommand.Flags().StringVarP(&outputImage, "output", "o", "", "output image file (mandatory).")
 	temperatureCommand.Flags().Float64VarP(&temp, "temperature", "t", 0, "temperature value (optional), use positive number for warmer and negative number for cooler. if not set it will set to default (0).")
 
 	// set required flag
-	temperatureCommand.MarkFlagRequired("input image")
-	temperatureCommand.MarkFlagRequired("output image")
+	temperatureCommand.MarkFlagRequired("input")
+	temperatureCommand.MarkFlagRequired("output")
 
 	c.rootCmd.AddCommand(temperatureCommand)
 	c.rootCmd.Execute()

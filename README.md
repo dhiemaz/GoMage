@@ -145,8 +145,14 @@ Flags:
 * output_image: is the path of the output image.
 * temperature: is the temperature value that you want to adjust. Use positive number for warmer and negative number for cooler. if not set it will set to default (0).
 
-Example:
+Example (warmer colour):
 
 ```shell
-$ ./bin/gomage temperature --input ./testdata/sample.jpg --output ./testdata/sample_output.jpg --temperature 10
+$ ./bin/gomage temperature --input ./testdata/sample.jpeg --output ./testdata/sample_output.jpeg --temperature 500
+```
+
+Example (cooler colour):
+
+```shell
+$ ./bin/gomage temperature --input ./testdata/sample.jpeg --output ./testdata/sample_output.jpeg --temperature -500
 ```

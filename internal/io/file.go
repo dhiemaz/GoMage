@@ -10,6 +10,10 @@ import (
 
 // LoadFile function to load an image from a file
 func LoadFile(fileName string) (image.Image, error) {
+	if _, err := os.Stat(fileName); os.IsNotExist(err) {
+		return nil, errors.New("file not found")
+	}
+
 	if err := imageExtensionValidation(fileName); err != nil {
 		return nil, err
 	}
