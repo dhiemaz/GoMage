@@ -136,8 +136,8 @@ Usage:
 
 Flags:
   -h, --help                  help for temperature
-  -i, --input image string    input image file (mandatory).
-  -o, --output image string   output image file (mandatory).
+  -i, --input string    input image file (mandatory).
+  -o, --output string   output image file (mandatory).
   -t, --temperature float     temperature value (optional), use positive number for warmer and negative number for cooler. if not set it will set to default (0).
 ```
 
