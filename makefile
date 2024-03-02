@@ -22,7 +22,7 @@ M = $(shell printf "\033[34;1m▶\033[0m")
 build: $(BIN) ; $(info $(M) Building executable...) @ ## Build program binary
 	$Q $(GO) build \
 		-ldflags '-X main.version=$(VERSION) -X main.buildDate=$(DATE)' \
-		-o ./gomage main.go
+		-o $(BIN)/gomage main.go
 
 # Tools
 
