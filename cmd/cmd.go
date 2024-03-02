@@ -47,16 +47,16 @@ func (c *Command) Run() {
 		Short: "adjust image temperature.",
 		Long:  "adjust image temperature.",
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println(inputImage, outputImage, temp)
 			actions.AdjustTemperature(inputImage, outputImage, temp)
 		},
 	}
 
-	temperatureCommand.Flags().StringVarP(&inputImage, "input image", "i", "", "Input image file.")
-	temperatureCommand.Flags().StringVarP(&outputImage, "output image", "o", "", "Output image file.")
-	temperatureCommand.Flags().Float64VarP(&temp, "temperature", "t", 0, "Temperature, use positive number for warmer and negative number for cooler.")
+	temperatureCommand.Flags().StringVarP(&inputImage, "input image", "i", "", "input image file (mandatory).")
+	temperatureCommand.Flags().StringVarP(&outputImage, "output image", "o", "", "output image file (mandatory).")
+	temperatureCommand.Flags().Float64VarP(&temp, "temperature", "t", 0, "temperature value (optional), use positive number for warmer and negative number for cooler. if not set it will set to default (0).")
 
+	temperatureCommand.MarkFlagRequired("input image")
+	temperatureCommand.MarkFlagRequired("output image")
 	c.rootCmd.AddCommand(temperatureCommand)
-	c.rootCmd.SuggestionsMinimumDistance = 1
 	c.rootCmd.Execute()
 }

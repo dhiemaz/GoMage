@@ -9,7 +9,6 @@ import (
 
 func AdjustTemperature(inputPath, outputPath string, temperature float64) {
 
-	fmt.Println(inputPath, outputPath, temperature)
 	inputImage, err := io.LoadFile(inputPath)
 	if err != nil {
 		fmt.Println(fmt.Sprintf("error loading image %s : %v", inputPath, err))

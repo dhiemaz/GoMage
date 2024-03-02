@@ -10,7 +10,6 @@ import (
 
 // LoadFile function to load an image from a file
 func LoadFile(fileName string) (image.Image, error) {
-
 	if err := imageExtensionValidation(fileName); err != nil {
 		return nil, err
 	}
@@ -44,7 +43,7 @@ func SaveFile(fileName string, img image.Image) error {
 }
 
 func imageExtensionValidation(fileName string) error {
-	if fileName[len(fileName)-3:] == "jpg" && fileName[len(fileName)-4:] == "jpeg" {
+	if fileName[len(fileName)-3:] != "jpg" && fileName[len(fileName)-4:] != "jpeg" {
 		return errors.New("unsupported file format")
 	}
 
