@@ -11,8 +11,8 @@ import (
 // LoadFile function to load an image from a file
 func LoadFile(fileName string) (image.Image, error) {
 
-	if fileName[len(fileName)-3:] != "jpg" || fileName[len(fileName)-4:] != "jpeg" {
-		return nil, errors.New("unsupported file format")
+	if err := imageExtensionValidation(fileName); err != nil {
+		return nil, err
 	}
 
 	file, err := os.Open(fileName)
@@ -35,10 +35,18 @@ func SaveFile(fileName string, img image.Image) error {
 
 	defer file.Close()
 
-	// Determine the image format and encode accordingly
-	if fileName[len(fileName)-3:] == "jpg" || fileName[len(fileName)-4:] == "jpeg" {
-		return jpeg.Encode(file, img, nil)
+	// Determine the image format (must be either jpg or jpeg format
+	if err := imageExtensionValidation(fileName); err != nil {
+		return fmt.Errorf("unsupported file format")
 	}
 
-	return fmt.Errorf("unsupported file format")
+	return jpeg.Encode(file, img, nil)
+}
+
+func imageExtensionValidation(fileName string) error {
+	if fileName[len(fileName)-3:] == "jpg" && fileName[len(fileName)-4:] == "jpeg" {
+		return errors.New("unsupported file format")
+	}
+
+	return nil
 }

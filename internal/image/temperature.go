@@ -6,8 +6,8 @@ import (
 	"image/color"
 )
 
-// AdjustTemperature function to adjust the temperature of an image
-func AdjustTemperature(img image.Image, temperature float64) image.Image {
+// Temperature function to adjust the temperature of an image
+func Temperature(img image.Image, temperature float64) image.Image {
 	bounds := img.Bounds()
 	newImage := image.NewRGBA(bounds)
 

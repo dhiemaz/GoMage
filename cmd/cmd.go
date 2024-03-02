@@ -23,6 +23,7 @@ func NewCommand() *Command {
 		Use:   "GoMage",
 		Short: "Go Image manipulation command line.",
 		Long:  "Go Image manipulation command line.",
+		Args:  cobra.MinimumNArgs(1),
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			// Show display text
 			fmt.Println(fmt.Sprintf(text))
@@ -45,8 +46,8 @@ func (c *Command) Run() {
 		Use:   "temperature",
 		Short: "adjust image temperature.",
 		Long:  "adjust image temperature.",
-		Args:  cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println(inputImage, outputImage, temp)
 			actions.AdjustTemperature(inputImage, outputImage, temp)
 		},
 	}
